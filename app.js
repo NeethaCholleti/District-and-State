@@ -40,3 +40,14 @@ app.get("/states/", async (request, response) => {
     stateArray.map((eachstate) => convertDbObjectToResponseObject(eachState))
   );
 });
+//API2
+app.get("/states/:stateId/", async (request, response) => {
+  const { stateId } = request.params;
+  const getStateQuery = `
+      SELECT *
+      FROM 
+      state
+      WHERE state_id=${stateId};`;
+  const state = await db.get(getStateQuery);
+  response.send(state);
+});
